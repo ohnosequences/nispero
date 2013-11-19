@@ -1,0 +1,57 @@
+body {
+    /*font: 13px mplus, Helvetica, arial, freesans, clean, sans-serif;   */
+}
+
+
+/*@font-face {
+    font-family: mplus;
+    src: url("mplus-1c-regular.ttf");
+}  */
+
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.x.axis path {
+    display: none;
+}
+
+.line {
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 1.5px;
+}
+
+#graphDiv {
+    fill: white;
+}
+
+.console {
+    background-color: rgb(78, 78, 78);
+    color: white;
+    height: 100px;
+    bottom: 0;
+    padding: 5px;
+    padding-bottom: 10px;
+    position: fixed;
+    overflow: scroll;
+    box-shadow: inset -10px 0 20px rgba(0,0,0,0.9);
+    font: 12px Consolas, "Liberation Mono", Courier, monospace;
+}
+
+.space {
+   height: 300px;
+}
+
+#tasksArea {
+    width: 510px;
+    height: 200px;
+}
+
+.hidden {
+    display: none;
+}

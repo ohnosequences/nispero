@@ -1,0 +1,22 @@
+*/target/*
+*/artifacts/*
+*/project/target
+*/project/project
+workingDir/
+project/target
+.idea/*
+.idea_modules/*
+client.zip
+clientData/*
+gridLog.log
+credentials.sbt
+
+# IntelliJ Indea
+.idea/
+.idea_modules/
+src/main/main.iml
+*/target/*
+*/artifacts/*
+lib/
+*.pem
+gridBase/grid.config.generated

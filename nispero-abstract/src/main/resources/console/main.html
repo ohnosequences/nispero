@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Nispero Console</title>
+    <link href="https://s3-eu-west-1.amazonaws.com/{bucket}/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="https://s3-eu-west-1.amazonaws.com/{bucket}/main.css" rel="stylesheet" media="screen">
+    <script src="https://s3-eu-west-1.amazonaws.com/{bucket}/jquery-1.8.3.min.js"></script>
+    <script src="https://s3-eu-west-1.amazonaws.com/{bucket}/d3.v3.js"></script>
+    <style type="text/css">
+        [class^="icon-"] { background-image: url("https://s3-eu-west-1.amazonaws.com/{bucket}/glyphicons-halflings.png"); }
+        .icon-white { background-image: url("https://s3-eu-west-1.amazonaws.com/{bucket}/glyphicons-halflings-white.png"); }
+    </style>
+</head>
+<body>
+
+<div class="row show-grid">
+    <div class="span2"></div>
+
+    <div class="span10">
+
+        <h1>Nispero Console</h1>
+
+        <ul class="nav nav-tabs" id="mainTab">
+            <li class="active"><a href="#instances" id="instancesTab">instances</a></li>
+            <li><a href="#group" id="groupTab">config</a></li>
+            <li><a href="#tasks" id="tasksTab">tasks</a></li>            
+            <li><a href="#graph" id="graphTab">graph</a></li>
+            <li><a href="#global">undeploy</a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <div class="tab-pane active" id="instances">
+
+                <h3>Instances</h3>
+
+                <table class="table" id="instancesTable">
+                    <thead>
+                    <tr>
+                        <th>Instance ID</th>
+                        <th>Status Tag</th>
+                        <th>State</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+
+                <h3>Spot Instance Requests</h3>
+
+                <table class="table" id="requestsTable">
+                    <thead>
+                    <tr>
+                        <th>Request ID</th>
+                        <th>Status Tag</th>
+                        <th>State</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+
+                <p>
+                    <a class="btn btn-info" href="#" id="refreshInstances"><i class="icon-refresh icon-white"></i>Refresh</a>
+                </p>
+
+
+            </div>
+
+            <div class="tab-pane" id="tasks">
+
+                <a href="/tasks/initial">Initial tasks</a>
+
+                <h3 id="tasksCount">~ 0 tasks</h3>
+
+                <!--<h4>Input queue status</h4>-->
+
+                <!--<div id="inputQueueStatus"></div>-->
+                <p>
+                    <a href="#addTasksModal" role="button" class="btn" data-toggle="modal">Add tasks</a>
+                    <button type="button" class="btn btn-danger" id="removeAll">Remove all</button>
+                </p>
+                <div id="addTaskResult"></div>
+                <br><br><br>
+         
+                <h3 id="taskResultsCount">~ 0 success results</h3>
+                <table class="table" id="resultsTable">
+                    <thead>
+                    <tr>
+                        <th>Result</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <a class="btn btn-info" href="#" id="viewResults"><i class="icon-refresh icon-white"></i>View success results</a>
+
+                <h3 id="taskFailsCount">~ 0 fails</h3>
+
+                <table class="table" id="failsTable">
+                    <thead>
+                    <tr>
+                        <th>Fail</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <a class="btn btn-info" href="#" id="viewFails"><i class="icon-refresh icon-white"></i>View fails fails</a>
+
+
+            </div>
+
+            <div class="tab-pane" id="group">
+
+
+                <a href="/config">config</a>
+
+
+                <div id="groupDeleted">
+                    <h2>Group deleted</h2>
+                </div>
+                <div id="groupState">
+                   <h3>Group settings</h3>
+                <p>
+                    <b>Group name: </b> <label id="groupName"></label>
+                </p>
+                <p>
+                    <label><b>Desired capacity:</b></label>
+                    <input type="number" min="0" value="1" id="desiredCapacity">
+                </p>
+                </div>
+
+            </div>
+
+            <div class="tab-pane" id="global">
+
+                <p>
+                    <!--<button type="button" class="btn btn-danger" id="undeploy">Undeploy</button>-->
+                    <a href="/undeploy" role="button" class="btn btn-danger">Undeploy</a>
+                </p>
+
+                <h3>Launch configurations</h3>
+                <table class="table" id="launchConfigsTable">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Instance type</th>
+                        <th>Spot price</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <br>
+                <br>
+                <br>
+                <br>
+
+                <h3>AutoScaling groups</h3>
+                <table class="table" id="autoScalingGroupsTable">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Launch Config</th>
+                        <th>Desired (min/max) capacity</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="tab-pane" id="graph">
+                <div id="graphDiv"></div>
+            </div>
+        </div>
+    </div>
+    <div class="span2"></div>
+
+</div>
+<div class="space">
+
+</div>
+<hr>
+
+<!--<div class="row-fluid console">-->
+    <!--<div id="console"></div>-->
+<!--</div>-->
+
+
+
+
+<div class="modal hide fade" id="sshModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>ssh command</h3>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-success"><p id="sshCommand"></p></div>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Ok</button>
+    </div>
+</div>
+
+
+<div class="modal hide fade" id="addTasksModal">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Add tasks</h3>
+    </div>
+    <div class="modal-body">
+        <label>Tasks description (in JSON format):</label>
+        <textarea id="tasksArea"></textarea>
+
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true" id="addTasks">Add</button>
+    </div>
+</div>
+
+
+
+
+
+<script>
+
+if (!window.console) console = {};
+console.log = console.log || function(){};
+console.warn = console.warn || function(){};
+console.error = console.error || function(){};
+console.info = console.info || function(){};
+
+
+
+
+$(function () {
+
+$('#mainTab a').click(function (e) {
+e.preventDefault();
+window.location.hash = $(this).attr('href');
+$(this).tab('show');
+var address = this + ""
+var tabId = address.split("#")[1]
+console.info("tabId = " + tabId)
+if(tabId === "graph") {
+drawStat()
+} else if(tabId === "instances") {
+updateInstances()
+} else if(tabId === "group") {
+updateGroup()
+} else if(tabId === "tasks") {
+updateTasks()
+} else if(tabId === "global") {
+updateGlobal()
+}
+
+})
+
+
+
+$('#addTasks').click(function (e) {
+var tasks = $('#tasksArea').attr('value')
+
+sendJson(
+'/tasks/add',
+JSON.parse(tasks),
+updateTasks
+)
+})
+
+
+$('#removeAll').click(function (e) {
+$.ajax({
+url: "/tasks/removeAll"
+})
+})
+
+
+$('#undeploy').click(function (e) {
+$.ajax({
+url: "/undeploy"
+})
+})
+
+
+updateInstances()
+
+
+$("#refreshInstances").click(updateInstances)
+
+
+function updateTasks() {
+console.info("updateTasks()")
+//todo loading
+$.ajax("/status/inputQueue", {
+contentType: "application/json",
+success: function (data) {
+var attributes = JSON.parse(data)
+var mess = attributes.amountMessages - 0
+$('#tasksCount').text('~ ' + mess + ' tasks')
+
+}
+})
+
+$.ajax("/status/outputQueue", {
+contentType: "application/json",
+success: function (data) {
+var attributes = JSON.parse(data)
+var mess = attributes.amountMessages - 0
+$('#taskResultsCount').text('~ ' + mess + ' results')
+
+}
+})
+
+$.ajax("/status/errorQueue", {
+contentType: "application/json",
+success: function (data) {
+var attributes = JSON.parse(data)
+var mess = attributes.amountMessages - 0
+$('#taskFailsCount').text('~ ' + mess + ' fails')
+
+}
+})
+
+
+}
+
+$('#viewResults').click(function() {
+    $.ajax("/status/successResults", {
+        contentType: "application/json",
+        success: function (data) {
+            $('#resultsTable tbody').empty()
+            var results = JSON.parse(data)
+            results.forEach(function(results) {
+                var result = JSON.parse(results)
+
+$('#resultsTable').append('<tr>' +
+'<td>' + result.Message + '</td>' +
+'</tr>')
+            })
+        }
+    })
+})
+
+$('#viewFails').click(function() {
+$.ajax("/status/errorResults", {
+contentType: "application/json",
+success: function (data) {
+$('#failsTable tbody').empty()
+var results = JSON.parse(data)
+results.forEach(function(results) {
+var result = JSON.parse(results)
+$('#failsTable').append('<tr>' +
+    '<td>' + result.Message + '</td>' +
+    '</tr>')
+})
+}
+})
+})
+
+
+
+function updateInstances() {
+console.info("updateInstances()")
+
+//update instances
+$.ajax("/instances/status", {
+contentType: "application/json",
+success: function (data) {
+var instances = JSON.parse(data)
+$('#instancesTable tbody').empty()
+instances.forEach(function (i) {
+var id = i.instanceId
+var linkId = "terminateLink" + id
+var sshLink = "sshLink" + id
+var logLink = "logLink" + id
+$('#instancesTable').append('<tr>' +
+    '<td>' + i.instanceId + '</td>' +
+    '<td>' + i.statusTag + '</td>' +
+    '<td>' + i.state + '</td>' +
+    '<td>' +
+        '<a href="#" id="' + linkId + '" >terminate</a>' +
+        ' <a href="/instances/log/' + id + '"id="' + logLink + '" >log</a>' +
+        // '<a href="#" id="' + sshLink + '" >ssh</a>' +
+        ' <a href="#sshModal" id="' + sshLink + '" data-toggle="modal">ssh</a>' +
+        '</td>' +
+    '</tr>')
+$('#' + linkId).click(function () {
+terminateInstance(id)
+})
+
+$('#' + sshLink).click(function () {
+getSSHCommand(id)
+})
+
+})
+}
+})
+
+//updating requests
+$.ajax("/instances/requests/status", {
+contentType: "application/json",
+success: function (data) {
+var instances = JSON.parse(data)
+$('#requestsTable tbody').empty()
+instances.forEach(function (i) {
+var id = i.requestId
+var linkId = "cancelLink" + id
+$('#requestsTable').append('<tr>' +
+    '<td>' + i.requestId + '</td>' +
+    '<td>' + i.statusTag + '</td>' +
+    '<td>' + i.state + '</td>' +
+    '<td>' + i.status + '</td>' +
+    '<td><a href="#" id="' + linkId + '" >cancel</a></td>' +
+    '</tr>')
+$('#' + linkId).click(function () {
+cancelRequest(id)
+})
+
+})
+}
+})
+
+}
+
+function updateGroup() {
+console.info("updateGroup()");
+
+$.ajax({
+url: "/autoScaling/group/state",
+success: function(data) {
+if(data === "{}") {
+$('#groupDeleted').show()
+$('#groupState').hide()
+} else {
+$('#groupDeleted').hide()
+$('#groupState').show()
+var group = JSON.parse(data)
+$("#groupName").text(group.name)
+$("#desiredCapacity").attr("value", group.desiredCapacity)
+}
+}
+})
+}
+
+
+
+
+
+function updateGlobal() {
+console.info("updateGlobal()");
+//updating launchConfigs
+$.ajax("/autoScaling/launchConfigs", {
+contentType: "application/json",
+success: function (data) {
+var launchConfigs = JSON.parse(data)
+$('#launchConfigsTable tbody').empty()
+launchConfigs.forEach(function (i) {
+
+var linkId = "deleteLink" + i.name
+$('#launchConfigsTable').append('<tr>' +
+    '<td>' + i.name + '</td>' +
+    '<td>' + i.instanceSpecs.instanceType + '</td>' +
+    '<td>' + i.spotPrice + '</td>' +
+    '<td><a href="#" id="' + linkId + '" >delete</a></td>' +
+    '</tr>')
+$('#' + linkId).click(function () {
+deleteLaunchConfig(i.name)
+updateAutoRunner()
+})
+
+})
+}
+})
+
+//updating autoScalingGroups
+$.ajax("/autoScaling/groups", {
+contentType: "application/json",
+success: function (data) {
+var groups = JSON.parse(data)
+$('#autoScalingGroupsTable tbody').empty()
+groups.forEach(function (i) {
+
+var linkId = "ASdeleteLink" + i.name
+$('#autoScalingGroupsTable').append('<tr>' +
+    '<td>' + i.name + '</td>' +
+    '<td>' + i.launchingConfiguration.name + '</td>' +
+    '<td>' + i.desiredCapacity + ' (' + i.minSize + '/' + i.maxSize + ')' + '</td>' +
+    '<td><a href="#" id="' + linkId + '" >delete</a></td>' +
+    '</tr>')
+$('#' + linkId).click(function () {
+deleteAutoScalingGroup(i.name)
+updateAutoRunner()
+})
+
+})
+}
+})
+
+}
+
+
+$("#desiredCapacity").change(function() {
+
+var capacity = $("#desiredCapacity").attr("value")
+
+$.ajax({
+url: "/autoScaling/group/capacity/set/" + capacity
+})
+})
+
+
+
+
+
+function terminateInstance(id) {
+$.ajax("/instances/terminate/" + id, {
+contentType: "application/json",
+success: function (data) {
+}
+})
+}
+
+function cancelRequest(id) {
+$.ajax("/instances/requests/cancel/" + id, {
+contentType: "application/json",
+success: function (data) {
+}
+})
+}
+
+function deleteLaunchConfig(name) {
+$.ajax("/autoScaling/launchConfigs/delete/" + name, {
+contentType: "application/json",
+success: function (data) {
+}
+})
+}
+
+function deleteAutoScalingGroup(name) {
+$.ajax("/autoScaling/groups/delete/" + name, {
+contentType: "application/json",
+success: function (data) {
+}
+})
+}
+
+
+
+
+
+function sendJson(url, json, success) {
+$.ajax({
+type: 'POST',
+url: url,
+dataType: 'json',
+data: JSON.stringify(json),
+success: success,
+error: function (XMLHttpRequest, textStatus, errorThrown) {
+// typically only one of textStatus or errorThrown
+
+console.error('<p>error' + errorThrown + '</p>')
+this; // the options for this ajax request
+}
+})
+
+}
+
+
+function getSSHCommand(id) {
+console.info('get ssh')
+$.ajax("/instances/ssh/" + id, {
+contentType: "application/json",
+success: function (data) {
+$('#sshCommand').text(data.replace('"','').replace('"',''))
+//$('#' + sshLink).attr('data-content', data)
+}
+})
+}
+
+function drawStat()  {
+console.info('drawStat()')
+$("#graphDiv").empty()
+
+var margin = {top: 20, right: 80, bottom: 30, left: 50},
+width = 650,
+height = 300;
+
+var parseDate = d3.time.format("%H:%M:%S").parse;
+
+var x = d3.time.scale()
+.range([0, width]);
+
+var y = d3.scale.linear()
+.range([height, 0]);
+
+var color = d3.scale.category10();
+
+var xAxis = d3.svg.axis()
+.scale(x)
+.orient("bottom");
+
+var yAxis = d3.svg.axis()
+.scale(y)
+.orient("left");
+
+var line = d3.svg.line()
+.interpolate("basis")
+.x(function(d) { return x(d.date); })
+.y(function(d) { return y(d.temperature); });
+
+var svg = d3.select("#graphDiv").append("svg")
+.attr("width", width + margin.left + margin.right)
+.attr("height", height + margin.top + margin.bottom)
+.append("g")
+.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+
+d3.json("/instances/stats", function(error, data) {
+//  d3.select("#graphDiv")
+
+// alert(data.length)
+color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+
+data.forEach(function(d) {
+//for (i=0;i<data.length;i++) {
+//var d = data[i]
+d.date = parseDate(d.date);
+d.timestamp = 0;
+});
+
+var cities = color.domain().map(function(name) {
+return {
+name: name,
+values: data.map(function(d) {
+return {date: d.date, temperature: +d[name]};
+})
+};
+});
+
+x.domain(d3.extent(data, function(d) { return d.date; }));
+
+y.domain([
+d3.min(cities, function(c) { return d3.min(c.values, function(v) { return v.temperature; }); }),
+d3.max(cities, function(c) { return d3.max(c.values, function(v) { return v.temperature; }); })
+]);
+
+svg.append("g")
+.attr("class", "x axis")
+.attr("transform", "translate(0," + height + ")")
+.style("fill", "black")
+.call(xAxis);
+
+svg.append("g")
+.attr("class", "y axis")
+.call(yAxis)
+.style("fill", "black")
+.append("text")
+.attr("transform", "rotate(-90)")
+.attr("y", 6)
+.attr("dy", ".71em")
+.style("text-anchor", "end")
+.style("fill", "black")
+.text("");
+
+var city = svg.selectAll(".city")
+.data(cities)
+.enter().append("g")
+.attr("class", "city");
+
+city.append("path")
+.attr("class", "line")
+.attr("d", function(d) { return line(d.values); })
+.style("stroke", function(d) { return color(d.name); });
+
+city.append("text")
+.datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })
+.attr("transform", function(d) { return "translate(" + x(d.value.date) + "," + y(d.value.temperature) + ")"; })
+.attr("x", 3)
+.attr("dy", ".35em")
+.style("fill", "black")
+.text(function(d) { return d.name.replace("Instances","").replace("Requests",""); });
+});
+}
+})
+
+
+</script>
+
+
+<script src="https://s3-eu-west-1.amazonaws.com/{bucket}/bootstrap.min.js"></script>
+</body>
+</html>
