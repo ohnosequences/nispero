@@ -3,7 +3,7 @@
 #### Requirements
 
 * AWS account
-* keys for your AWS account, saved in a properties file under the path "~/credentials" (for example `C:\Users\Administrator\credentials`):
+* keys for your AWS account, saved in a properties file under the path "~/credentials.nispero" (for example `C:\Users\Administrator\credentials`):
 
 ```
 accessKey = <your access key>
@@ -47,7 +47,7 @@ Go to http://www.scala-sbt.org/0.13/tutorial/Installing-sbt-on-Windows.html and 
 #### install nispero command line
 
 ```
-cs ohnosequences/nisperoCLI/1.0.0
+cs ohnosequences/nisperoCLI -b super-cli
 ```
 
 
