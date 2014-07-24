@@ -21,7 +21,7 @@ secretKey = <your secret key>
 
 ```bash
 cd ~
-curl http://scalasbt.artifactoryonline.com/scalasbt/sbt-native-packages/org/scala-sbt/sbt/0.12.4/sbt.rpm > sbt.rpm
+curl http://dl.bintray.com/sbt/rpm/sbt-0.13.5.rpm > sbt.rpm
 sudo yum install sbt.rpm -y
 ```
 
