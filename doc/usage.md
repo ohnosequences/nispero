@@ -23,7 +23,7 @@ containing all settings such as amount workers, [task provider](tasks-providers.
 The following command will create ready to use template for *nispero* project:
 
 ```bash
-nispero create
+nispero create ohnosequences/nispero.g8
 ```
 
 This command will ask you to fill these settings:
