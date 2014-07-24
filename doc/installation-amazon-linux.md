@@ -5,7 +5,7 @@
 #### Requirements
 
 * an AWS account
-* keys for your AWS account, saved in a properties file under the path "~/credentials" (for example `/home/ec2-user/credentials`):
+* keys for your AWS account, saved in a properties file under the path "~/credentials.nispero" (for example `/home/ec2-user/credentials`):
 
 ```
 accessKey = <your access key>
@@ -36,7 +36,7 @@ cs n8han/giter8
 #### install nispero command line
 
 ```
-cs ohnosequences/nisperoCLI/1.0.0
+cs ohnosequences/nisperoCLI -b super-cli
 ```
 
 
