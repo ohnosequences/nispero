@@ -36,7 +36,7 @@ Reopen your terminal.
 
 #### install SBT
 
-Go to http://www.scala-sbt.org/0.12.4/docs/Getting-Started/Setup.html and install the MSI package from there.
+Go to http://www.scala-sbt.org/0.13/tutorial/Installing-sbt-on-Windows.html and install the MSI package from there.
 
 #### install conscript
 
