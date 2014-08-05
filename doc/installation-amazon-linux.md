@@ -36,8 +36,12 @@ cs n8han/giter8
 #### install nispero command line
 
 ```
-cs ohnosequences/nisperoCLI -b super-cli
+cs ohnosequences/nisperoCLI/<version>
 ```
 
+for example
 
+```
+cs ohnosequences/nisperoCLI/version
+```
 
