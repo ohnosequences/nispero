@@ -89,7 +89,7 @@ For ssh connections you need a special file containing an AWS keypair ("keyName"
 
 #### Manual undeploy
 
-If you can't get access to the console, you can undeploy your *nispero* by running the `nispero undeploy` command in the project folder of the running *nispero* instance. Before executing this command make sure that the version of your running *nispero* instance coincides with the version found in "version.sbt".
+If you can't get access to the console, you can undeploy your *nispero* by running the `sbt "run undeploy"` command in the project folder of the running *nispero* instance. Before executing this command make sure that the version of your running *nispero* instance coincides with the version found in "version.sbt".
 
 
 
