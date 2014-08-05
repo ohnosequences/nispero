@@ -21,8 +21,7 @@ secretKey = <your secret key>
 
 ```bash
 cd ~
-curl http://dl.bintray.com/sbt/rpm/sbt-0.13.5.rpm > sbt.rpm
-sudo yum install sbt.rpm -y
+yum install -y http://dl.bintray.com/sbt/rpm/sbt-0.13.5.rpm
 ```
 
 #### install conscript
