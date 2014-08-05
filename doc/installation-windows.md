@@ -47,7 +47,18 @@ Go to http://www.scala-sbt.org/0.13/tutorial/Installing-sbt-on-Windows.html and 
 #### install nispero command line
 
 ```
-cs ohnosequences/nisperoCLI -b super-cli
+#### install nispero command line
+
+```
+cs ohnosequences/nisperoCLI/<version>
+```
+
+for example
+
+```
+cs ohnosequences/nisperoCLI/v2.1.0
+```
+
 ```
 
 
