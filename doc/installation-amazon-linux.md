@@ -35,12 +35,6 @@ chmod +x ./setup.sh
 #### install nispero command line
 
 ```
-cs ohnosequences/nisperoCLI/<version>
-```
-
-for example
-
-```
-cs ohnosequences/nisperoCLI/v2.1.0
+cs ohnosequences/nisperoCLI
 ```
 
