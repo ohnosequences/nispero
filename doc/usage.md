@@ -6,14 +6,6 @@
 
 [Windows](installation-windows.md)
 
-### Updating nispero
-
-If you have already installed *nispero* and want to update to new version type:
-
-```bash
-cs ohnosequences/nisperoCLI/<version>
-```
-
 ### Usage
 
 #### Create project
@@ -30,9 +22,8 @@ This command will ask you to fill these settings:
 
 * **name** — name of your *nispero* project. Only latin letters, digits and underscores ("_") are allowed (the name will converted automatically to this format otherwise)
 * **email** — email for *nispero* notifications
-* **bucketsSuffix** — should be specified only one suffix of an S3 bucket for publishing artifacts
-* **resolver-accessKey** — generated automatically, AWS access key for publishing
-* **resolver-secretKey** — generated automatically, AWS secret key for publishing
+* **bucketSuffix** — should be specified only one suffix of an S3 bucket for publishing artifacts
+* **credentialsProvider** — generated automatically, AWS credentials provider for publishing
 * **password** — generated automatically, password for *console*
 
 After filling all fields the command will generate a directory with a *nispero* project with same name as the **name** field.
