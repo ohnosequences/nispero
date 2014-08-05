@@ -40,6 +40,6 @@ cs ohnosequences/nisperoCLI/<version>
 for example
 
 ```
-cs ohnosequences/nisperoCLI/version
+cs ohnosequences/nisperoCLI/v2.1.0
 ```
 
