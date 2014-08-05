@@ -65,7 +65,7 @@ The default *nispero* project uses [script executor](script-executor.md) for ins
 Before running your *nispero* project you should compile it and publish artifacts to the special S3 bucket. To do it type:
 
 ```bash
-nispero publish
+sbt publish
 ```
 
 in your project directory.
@@ -73,21 +73,9 @@ in your project directory.
 #### Run
 
 ```bash
-nispero run
+sbt run
 ```
 
-> Also it is possible to use `sbt` commands "nispero-publish" and "nispero-run" for this:
-
-```
-> sbt
-$ sbt
-[info] Loading global plugins ...
-> nispero-publish
-[info] Loading global plugins ...
-...
-> nispero-run
-...
-```
 
 #### Nispero Console
 
