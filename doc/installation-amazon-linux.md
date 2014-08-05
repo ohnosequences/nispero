@@ -27,7 +27,9 @@ yum install -y http://dl.bintray.com/sbt/rpm/sbt-0.13.5.rpm
 #### install conscript
 
 ```bash
-curl https://raw.github.com/n8han/conscript/master/setup.sh | sh
+wget https://raw.github.com/n8han/conscript/master/setup.sh
+chmod +x ./setup.sh
+./setup.sh
 ```
 
 #### install nispero command line
