@@ -5,7 +5,7 @@
 #### Requirements
 
 * an AWS account
-* keys for your AWS account, saved in a properties file under the path "~/credentials.nispero" (for example `/home/ec2-user/credentials`):
+* keys for your AWS account, saved in a properties file under the path "~/nispero.credentials" (for example `/home/ec2-user/nispero.credentials`):
 
 ```
 accessKey = <your access key>
