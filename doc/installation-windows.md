@@ -3,7 +3,7 @@
 #### Requirements
 
 * AWS account
-* keys for your AWS account, saved in a properties file under the path "~/credentials.nispero" (for example `C:\Users\Administrator\credentials`):
+* keys for your AWS account, saved in a properties file under the path "~/nispero.credentials" (for example `C:\Users\John Galt\nispero.credentials`):
 
 ```
 accessKey = <your access key>
