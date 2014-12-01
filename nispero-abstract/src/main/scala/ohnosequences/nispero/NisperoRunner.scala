@@ -46,12 +46,12 @@ abstract class NisperoRunner(nisperoDistribution: NisperoDistributionAux) {
         val iamProvider = new InstanceProfileCredentialsProvider()
         try {
           val ec2 = EC2.create(iamProvider)
-          ec2.createSecurityGroup("nispero")
+          val size = ec2.ec2.describeSpotPriceHistory().getSpotPriceHistory.size()
           (iamProvider, None)
         } catch {
           case e: AmazonClientException => {
             val defaultLocation = System.getProperty("user.home")
-            val file = new File(defaultLocation, "credentials")
+            val file = new File(defaultLocation, "nispero.credentials")
             retrieveCredentialsProviderFromFile(file)
           }
         }

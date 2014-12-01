@@ -106,7 +106,7 @@ abstract class TerminationDaemon(resourcesBundle: Resources, aws: AWS) extends B
     } else {
       (startTime, terminationConditions.timeout) match {
         case (None, _) => Some("start timeout is undefined!")
-        case (Some(timestamp), Some(timeout)) if (System.currentTimeMillis() / 1000 - timestamp > timeout) => {
+        case (Some(timestamp), Some(timeout)) if ((System.currentTimeMillis() - timestamp) > timeout) => {
           Some("terminated due to global timeout!")
         }
         case _ => None
