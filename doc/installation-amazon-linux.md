@@ -5,7 +5,7 @@
 #### Requirements
 
 * an AWS account
-* keys for your AWS account, saved in a properties file under the path "~/credentials" (for example `/home/ec2-user/credentials`):
+* keys for your AWS account, saved in a properties file under the path "~/nispero.credentials" (for example `/home/ec2-user/nispero.credentials`):
 
 ```
 accessKey = <your access key>
@@ -21,23 +21,20 @@ secretKey = <your secret key>
 
 ```bash
 cd ~
-curl http://dl.bintray.com/sbt/rpm/sbt-0.13.5.rpm > sbt.rpm
-sudo yum install sbt.rpm -y
+yum install -y http://dl.bintray.com/sbt/rpm/sbt-0.13.5.rpm
 ```
 
 #### install conscript
 
 ```bash
-curl https://raw.github.com/n8han/conscript/master/setup.sh | sh
-cs n8han/giter8
-
+wget https://raw.github.com/n8han/conscript/master/setup.sh
+chmod +x ./setup.sh
+./setup.sh
 ```
 
 #### install nispero command line
 
 ```
-cs ohnosequences/nisperoCLI/1.0.0
+cs ohnosequences/nisperoCLI
 ```
-
-
 

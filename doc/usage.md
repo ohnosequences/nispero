@@ -6,14 +6,6 @@
 
 [Windows](installation-windows.md)
 
-### Updating nispero
-
-If you have already installed *nispero* and want to update to new version type:
-
-```bash
-cs ohnosequences/nisperoCLI/<version>
-```
-
 ### Usage
 
 #### Create project
@@ -23,16 +15,15 @@ containing all settings such as amount workers, [task provider](tasks-providers.
 The following command will create ready to use template for *nispero* project:
 
 ```bash
-nispero create
+nispero create ohnosequences/nispero.g8
 ```
 
 This command will ask you to fill these settings:
 
 * **name** — name of your *nispero* project. Only latin letters, digits and underscores ("_") are allowed (the name will converted automatically to this format otherwise)
 * **email** — email for *nispero* notifications
-* **bucketsSuffix** — should be specified only one suffix of an S3 bucket for publishing artifacts
-* **resolver-accessKey** — generated automatically, AWS access key for publishing
-* **resolver-secretKey** — generated automatically, AWS secret key for publishing
+* **bucketSuffix** — should be specified only one suffix of an S3 bucket for publishing artifacts
+* **credentialsProvider** — generated automatically, AWS credentials provider for publishing
 * **password** — generated automatically, password for *console*
 
 After filling all fields the command will generate a directory with a *nispero* project with same name as the **name** field.
@@ -65,7 +56,7 @@ The default *nispero* project uses [script executor](script-executor.md) for ins
 Before running your *nispero* project you should compile it and publish artifacts to the special S3 bucket. To do it type:
 
 ```bash
-nispero publish
+sbt publish
 ```
 
 in your project directory.
@@ -73,21 +64,9 @@ in your project directory.
 #### Run
 
 ```bash
-nispero run
+sbt run
 ```
 
-> Also it is possible to use `sbt` commands "nispero-publish" and "nispero-run" for this:
-
-```
-> sbt
-$ sbt
-[info] Loading global plugins ...
-> nispero-publish
-[info] Loading global plugins ...
-...
-> nispero-run
-...
-```
 
 #### Nispero Console
 
@@ -110,7 +89,7 @@ For ssh connections you need a special file containing an AWS keypair ("keyName"
 
 #### Manual undeploy
 
-If you can't get access to the console, you can undeploy your *nispero* by running the `nispero undeploy` command in the project folder of the running *nispero* instance. Before executing this command make sure that the version of your running *nispero* instance coincides with the version found in "version.sbt".
+If you can't get access to the console, you can undeploy your *nispero* by running the `sbt "run undeploy"` command in the project folder of the running *nispero* instance. Before executing this command make sure that the version of your running *nispero* instance coincides with the version found in "version.sbt".
 
 
 
