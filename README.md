@@ -4,3 +4,7 @@
 
 See the [documentation](doc/README.md) for more.
 
+### Contacts
+
+This project is maintained by [@evdokim](https://github.com/evdokim).
+
